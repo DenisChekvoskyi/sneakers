@@ -5,7 +5,6 @@
 
 body {
   background-color: #e7f6ff;
-  overflow: hidden;
 }
 
 .container {
@@ -128,21 +127,13 @@ body {
   border: 1px solid #f3f3f3;
   background: #fff;
   padding: 20px 30px 34px 30px;
-  margin: 20px;
+  margin: 15px;
   transition: all 0.3s ease;
 }
 
 .card:hover {
   transform: translateY(-5px);
   box-shadow: 0px 14px 30px 0px rgba(0, 0, 0, 0.05);
-}
-
-.card:first-child {
-  margin-left: 0;
-}
-
-.card:last-child {
-  margin-right: 0;
 }
 
 .favorite {

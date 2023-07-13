@@ -1,13 +1,20 @@
-import add from "../assets/img/icons/add.svg";
-import likeOn from "../assets/img/icons/likeOn.svg";
-import likeOff from "../assets/img/icons/likeOff.png";
+import { useState } from "react";
 
 function Card({ img, title, price }) {
+  const [isfacorite, setIsFavorite] = useState(false);
+  const [isAdded, setIsAdded] = useState(false);
+
+  const toggleIsFavorite = () => setIsFavorite(!isfacorite);
+  const toggleIsAdded = () => setIsAdded(!isAdded);
+
   return (
     <div className="card">
       <div className="favorite">
-        <img style={{ display: "none " }} src={likeOn} alt="likeOn" />
-        <img src={likeOff} alt="likeOff" />
+        <img
+          onClick={toggleIsFavorite}
+          src={isfacorite ? "img/icons/likeOn.svg" : "img/icons/likeOff.png"}
+          alt="favorite"
+        />
       </div>
       <img className="sneakers-img" src={img} alt="sneakers" />
       <h5 className="card-name">{title}</h5>
@@ -16,7 +23,12 @@ function Card({ img, title, price }) {
           <p className="card-name-prace">price:</p>
           <div className="card-prace">{price} UAH</div>
         </div>
-        <img className="card-add" src={add} alt="add" />
+        <img
+          onClick={toggleIsAdded}
+          className="card-add"
+          src={isAdded ? "img/icons/addOk.svg" : "img/icons/addPlus.svg"}
+          alt="add"
+        />
       </div>
     </div>
   );
