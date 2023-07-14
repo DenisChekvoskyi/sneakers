@@ -6,31 +6,24 @@ import Cart from "./components/Cart";
 
 import { useEffect, useState } from "react";
 
-// const dataBase = [
-//   {
-//     img: "img1",
-//     title: "Men sneakers Nike Blazer Mid Suede",
-//     price: "12 999",
-//   },
-//   {
-//     img: "img2",
-//     title: "Men sneakers Nike Air Max 270",
-//     price: "15 200",
-//   },
-//   {
-//     img: "img3",
-//     title: "Men sneakers Nike Blazer Mid Suede",
-//     price: "8 500",
-//   },
-//   {
-//     img: "img4",
-//     title: "Sneakers Puma X Aka Boku Future Rider",
-//     price: "8 999",
-//   },
-// ];
-
 function App() {
   const [sneakers, setSneakers] = useState([]);
+  const [isOpenCart, setIsOpenCart] = useState(false);
+  const [addToCart, setAddToCart] = useState([]);
+
+  const toggleCart = () => setIsOpenCart((prev) => !prev);
+
+  const checkToSum = () => {
+    let sum = 0;
+    addToCart.forEach((item) => {
+      const priceWithoutSpaces = item.price.replace(/\s/g, "");
+      const priceAsNumber = parseInt(priceWithoutSpaces);
+      sum += priceAsNumber;
+    });
+    return sum;
+  };
+
+  const totalSum = checkToSum();
 
   useEffect(() => {
     fetch(
@@ -42,9 +35,9 @@ function App() {
 
   return (
     <div>
-      <Cart />
+      {isOpenCart && <Cart items={addToCart} toggleCart={toggleCart} totalSum={totalSum} />}
       <div className="container">
-        <Header />
+        <Header toggleCart={toggleCart} totalSum={totalSum} />
         <div className="devider"></div>
         <main>
           <div className="main-bar">
@@ -56,7 +49,15 @@ function App() {
           </div>
           <div className="cards">
             {sneakers.map(({ img, title, price }, i) => (
-              <Card key={i} img={img} title={title} price={price} />
+              <Card
+                key={i}
+                img={img}
+                title={title}
+                price={price}
+                addToCart={() => {
+                  setAddToCart((prev) => [...prev, { img, title, price }]);
+                }}
+              />
             ))}
           </div>
         </main>

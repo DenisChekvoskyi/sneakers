@@ -1,11 +1,16 @@
 import { useState } from "react";
 
-function Card({ img, title, price }) {
+function Card({ img, title, price, addToCart }) {
   const [isfacorite, setIsFavorite] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
 
-  const toggleIsFavorite = () => setIsFavorite(!isfacorite);
-  const toggleIsAdded = () => setIsAdded(!isAdded);
+  const toggleIsFavorite = () => {
+    setIsFavorite((prev) => !prev);
+  };
+  const toggleIsAdded = () => {
+    setIsAdded((prev) => !prev);
+    addToCart();
+  };
 
   return (
     <div className="card">
